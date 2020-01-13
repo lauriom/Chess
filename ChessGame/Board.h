@@ -7,22 +7,38 @@
 
 #include <iostream>
 #include <array>
-#include "Piece.h"
 #include <memory>
+#include <vector>
+
+#include "PieceHeaders.h"
+#include "Piece.h"
+
 
 using  namespace  std;
 class Board {
 public:
-    Board(){
-        int i  =  10;
-        for (auto &row : board){
-            for (auto & elem : row){
-                elem = unique_ptr<Piece>(new Piece(i++));
-            }
-        }
-    };
+    Board();
+    void resetBoard();
+    void printBoard();
+
+
+    vector<string> possibleMoves(bool isWhite);
+    void movePiece(int yStart, int xStart , int yEnd,int xEnd);
+
+    bool isCheckMate() const;
+    bool isCheck() const;
+
+
+private:
+    bool ischeck = false;
+    bool ischeckmate = false;
+
+    string arrayPosToString(int x, int y, int xDes, int yDes);
+
 private:
     array<array<unique_ptr<Piece>,8>,8> board;
+
+
 };
 
 

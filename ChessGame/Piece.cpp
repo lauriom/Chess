@@ -4,4 +4,22 @@
 
 #include "Piece.h"
 
+Piece::Piece(bool iswhite) : isWhite(iswhite){
+id = 7;
+}
+
+bool Piece::isPieceWhite() {
+    return isWhite;
+}
+
+std::string Piece::getName() {
+    return name;
+}
+
+int Piece::getID() {
+    return id;
+}
+
+
+
 
