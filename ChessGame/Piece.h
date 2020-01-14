@@ -13,10 +13,13 @@
 
 class Piece {
 public:
-Piece(int id,bool iswhite);
-bool isPieceWhite();
-std::string getName();
-int getID();
+    Piece(int id, bool iswhite);
+
+    bool isPieceWhite();
+
+    std::string getName();
+
+    int getID();
 
 private:
     bool isWhite;

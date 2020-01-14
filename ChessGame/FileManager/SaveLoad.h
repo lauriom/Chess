@@ -2,8 +2,8 @@
 // Created by Lauri on 11/01/2020.
 //
 
-#ifndef CHESS_GAMESAVE_H
-#define CHESS_GAMESAVE_H
+#ifndef CHESS_SAVELOAD_H
+#define CHESS_SAVELOAD_H
 using namespace std;
 
 #include <vector>
@@ -11,12 +11,13 @@ using namespace std;
 #include <iostream>
 #include <string>
 
-class GameSave {
+class SaveLoad {
 public:
-    void saveGame(const vector <string> &v);
+    void saveGame(const vector<string> &v);
+    void deleteGame();
     vector<string> loadGame();
 
 };
 
 
-#endif //CHESS_GAMESAVE_H
+#endif //CHESS_SAVELOAD_H

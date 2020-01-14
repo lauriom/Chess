@@ -18,12 +18,12 @@ using  namespace  std;
 class Board {
 public:
     Board();
-    void resetBoard();
+    void generateBoard();
     void printBoard();
 
 
-    vector<string> possibleMoves(bool isWhite);
-    void movePiece(int yStart, int xStart , int yEnd,int xEnd);
+    vector<string> possibleMoves(bool isWhiteTurn);
+    void movePiece(int xStart, int yStart , int xEnd,int yEnd);
 
     bool isCheckMate() const;
     bool isCheck() const;
@@ -36,9 +36,9 @@ private:
     string arrayPosToString(int x, int y, int xDes, int yDes);
 
 private:
+    array<unique_ptr<Piece>,8> board2;
+
     array<array<unique_ptr<Piece>,8>,8> board;
-
-
 };
 
 

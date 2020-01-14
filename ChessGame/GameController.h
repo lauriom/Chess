@@ -14,18 +14,22 @@ using namespace std;
 #include <algorithm>
 
 #include "Board.h"
-#include "FileManager/GameSave.h"
+#include "FileManager/SaveLoad.h"
 
 
 class GameController {
 public:
     GameController();
+
     void startGame();
+
     void resumeGame();
 
 private:
     void playGame();
+
     bool userInput();
+
     bool userInput2(string s);
 
     unique_ptr<Board> board;

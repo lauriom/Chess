@@ -4,30 +4,36 @@
 
 #include "Piece.h"
 
-Piece::Piece(int id,bool iswhite) : isWhite(iswhite), id(id){
-switch (id){
-    case king:
-        name = "bK";
-        break;
-    case queen:
-        name = "bQ";
-        break;
-    case bishop:
-        name = "bB";
-        break;
-    case knight:
-        name = "bN";
-        break;
-    case rook:
-        name = "bR";
-        break;
-    case pawn:
-        name = "bP";
-        break;
-}
-if(iswhite){ // sets piece color to white
-    name[0] = 'w';
-}
+/**
+ * constructor for piece,
+ * initializes name based on inputted parameters
+ * @param id determines piece type
+ * @param iswhite true/false
+ */
+Piece::Piece(int id, bool iswhite) : isWhite(iswhite), id(id) {
+    switch (id) {
+        case king:
+            name = "bK";
+            break;
+        case queen:
+            name = "bQ";
+            break;
+        case bishop:
+            name = "bB";
+            break;
+        case knight:
+            name = "bN";
+            break;
+        case rook:
+            name = "bR";
+            break;
+        case pawn:
+            name = "bP";
+            break;
+    }
+    if (iswhite) { // sets piece color to white
+        name[0] = 'w';
+    }
 }
 
 bool Piece::isPieceWhite() {
