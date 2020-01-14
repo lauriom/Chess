@@ -4,8 +4,30 @@
 
 #include "Piece.h"
 
-Piece::Piece(bool iswhite) : isWhite(iswhite){
-id = 7;
+Piece::Piece(int id,bool iswhite) : isWhite(iswhite), id(id){
+switch (id){
+    case king:
+        name = "bK";
+        break;
+    case queen:
+        name = "bQ";
+        break;
+    case bishop:
+        name = "bB";
+        break;
+    case knight:
+        name = "bN";
+        break;
+    case rook:
+        name = "bR";
+        break;
+    case pawn:
+        name = "bP";
+        break;
+}
+if(iswhite){ // sets piece color to white
+    name[0] = 'w';
+}
 }
 
 bool Piece::isPieceWhite() {

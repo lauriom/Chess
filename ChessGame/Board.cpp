@@ -35,40 +35,40 @@ void Board::printBoard() {
 void Board::resetBoard() {
 
     // creates black pieces
-    board[0][0] = std::make_unique<Rook>( false);
-    board[0][7] = std::make_unique<Rook>( false);
+    board[0][0] = std::make_unique<Piece>(rook,false);
+    board[0][7] = std::make_unique<Piece>(rook, false);
 
-    board[0][1] = std::make_unique<Knight>(false);
-    board[0][6] = std::make_unique<Knight>(false);
+    board[0][1] = std::make_unique<Piece>(knight,false);
+    board[0][6] = std::make_unique<Piece>(knight,false);
 
-    board[0][2] = std::make_unique<Bishop>(false);
-    board[0][5] = std::make_unique<Bishop>(false);
+    board[0][2] = std::make_unique<Piece>(bishop,false);
+    board[0][5] = std::make_unique<Piece>(bishop,false);
 
-    board[0][3] = std::make_unique<Queen>(false);
-    board[0][4] = std::make_unique<King>(false);
+    board[0][3] = std::make_unique<Piece>(queen,false);
+    board[0][4] = std::make_unique<Piece>(king,false);
 
 
     for (auto &elem : board [1]){
-       elem = std::make_unique<Pawn>( false);
+       elem = std::make_unique<Piece>(pawn, false);
     }
 
     //creates white pieces
 
     for (auto &elem : board [6]){
-       elem = std::make_unique<Pawn>( true);
+       elem = std::make_unique<Piece>(pawn, true);
     }
 
-    board[7][0] = std::make_unique<Rook>( true);
-    board[7][7] = std::make_unique<Rook>( true);
+    board[7][0] = std::make_unique<Piece>(rook, true);
+    board[7][7] = std::make_unique<Piece>(rook, true);
 
-    board[7][1] = std::make_unique<Knight>(true);
-    board[7][6] = std::make_unique<Knight>(true);
+    board[7][1] = std::make_unique<Piece>(knight,true);
+    board[7][6] = std::make_unique<Piece>(knight,true);
 
-    board[7][2] = std::make_unique<Bishop>(true);
-    board[7][5] = std::make_unique<Bishop>(true);
+    board[7][2] = std::make_unique<Piece>(bishop,true);
+    board[7][5] = std::make_unique<Piece>(bishop,true);
 
-    board[7][3] = std::make_unique<Queen>(true);
-    board[7][4] = std::make_unique<King>(true);
+    board[7][3] = std::make_unique<Piece>(queen,true);
+    board[7][4] = std::make_unique<Piece>(king,true);
 
 }
 /*
