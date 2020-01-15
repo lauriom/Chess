@@ -1,6 +1,5 @@
 #include "Board.h"
 
-#include <memory>
 
 Board::Board() {
     generateBoard();
@@ -76,16 +75,17 @@ void Board::generateBoard() {
 }
 
 /**
- *
- * @param yStart
+ * moves piece,
+ * flips the values from xy to yx
+ * as the chess move format is xy and array is yx
  * @param xStart
- * @param yEnd
+ * @param yStart
  * @param xEnd
+ * @param yEnd
  */
 void Board::movePiece(int xStart, int yStart, int xEnd, int yEnd) {
-    cout << xStart << " " << yStart<< " " <<xEnd << " " << yEnd << endl;
-    cout << board[xStart][yStart]->getName() <<endl;
-   board[xEnd][yEnd] = move(board[xStart][yStart]);  // TODO: fix
+    //clog << xStart << " " << yStart<< " " <<xEnd << " " << yEnd << endl;
+    board[yEnd][xEnd] = move(board[yStart][xStart]);  // TODO: fix
 }
 
 /**
@@ -96,7 +96,7 @@ void Board::movePiece(int xStart, int yStart, int xEnd, int yEnd) {
  */
 vector<string> Board::possibleMoves(bool isWhiteTurn) {
     vector<string> moves;
-    string temp;
+    vector<string> temp;
     int xPos = 0, yPos = 0;
     if (!isCheck()) {
         for (auto &row : board) {
@@ -106,20 +106,8 @@ vector<string> Board::possibleMoves(bool isWhiteTurn) {
                         switch (elem->getID()) {
                             case king: // move case for king piece TODO: does moving cause check?
                                 // king has a movement vector of 1 in all directions, loops check 3x3 grid and that it dosnt go out of bounds
-                                for (int x = -1; x <= 1; x++) {
-                                    for (int y = -1; y <= 1; y++) {
-                                        if (xPos + x >= 0 && xPos + x <= 7 && yPos + y >= 0 && yPos + y <= 7) {
-                                            if (board[xPos + x][yPos + y] != nullptr &&
-                                                (board[xPos + x][yPos + y]->isPieceWhite() != elem->isPieceWhite())) {
-                                                moves.push_back(arrayPosToString(xPos, yPos, xPos + x, yPos + y));
-                                            } else {
-                                                //clog << "piece is null " << endl;
-                                                moves.push_back(arrayPosToString(xPos, yPos, xPos + x, yPos + y));
-                                            }
-                                        }
-                                    }
-                                }
-
+                                temp = KingMoves(yPos, xPos);
+                                moves.insert(moves.end(), temp.begin(), temp.end());
                                 break;
 
                             case queen:
@@ -157,8 +145,29 @@ vector<string> Board::possibleMoves(bool isWhiteTurn) {
     } else { // sees what moves resolve check, if none then sets checkmate
 
     }
-    return
-            moves;
+    return moves;
+}
+
+vector<string> Board::KingMoves(int yPos, int xPos) {
+    vector<string> moves;
+    string temp;
+
+    for (int y = -1; y <= 1; y++) {
+        for (int x = -1; x <= 1; x++) {
+            if (xPos + x >= 0 && xPos + x <= 7 && yPos + y >= 0 && yPos + y <= 7) {
+                if (board[yPos + y][xPos + x].get() != nullptr) {
+                    if (board[yPos + y][xPos + x]->isPieceWhite() != board[yPos][xPos]->isPieceWhite()) {
+                        // clog << " Not null and not same color" << endl;
+                        moves.push_back(arrayPosToString(yPos, xPos, yPos + y, xPos + x));
+                    }
+                } else {
+                    // clog << "piece is null " << endl;
+                    moves.push_back(arrayPosToString(yPos, xPos, yPos + y, xPos + x));
+                }
+            }
+        }
+    }
+    return moves;
 }
 
 /**
@@ -169,15 +178,13 @@ vector<string> Board::possibleMoves(bool isWhiteTurn) {
  * @param yDes axis of destination
  * @return string in format 'xy xy'
  */
-string Board::arrayPosToString(int x, int y, int xDes, int yDes) {
+string Board::arrayPosToString(int y, int x, int yDes, int xDes) {
     string s;
-    //clog<< x <<y<< xDes <<yDes << endl;
     s.push_back(x + 65);
     s.push_back(56 - y);
     s.push_back(' ');
     s.push_back(xDes + 65);
     s.push_back(56 - yDes);
-
     return s;
 }
 
@@ -188,6 +195,8 @@ bool Board::isCheck() const {
 bool Board::isCheckMate() const {
     return ischeckmate;
 }
+
+
 
 
 

@@ -3,7 +3,7 @@
 //
 
 #include "GameController.h"
-#include "FileManager/SaveLoad.h"
+
 
 
 GameController::GameController() {
@@ -38,7 +38,7 @@ void GameController::resumeGame() {
         return;
     }
 
-    // converts ascii number/char to array positions
+
     for (auto &s : moveHistory) {
         cout << s << endl;
         if (!(isalpha(s[0]) && isdigit(s[1]) && isalpha(s[3]) && isdigit(s[4]))) {
@@ -47,10 +47,11 @@ void GameController::resumeGame() {
             save->deleteGame();
             return;
         }
-        yStart = s[0] - 65;
-        xStart = 56 - s[1];
-        yEnd = s[3] - 65;
-        xEnd = 56 - s[4];
+        // converts ascii number/char to array positions
+        xStart = s[0] - 65;
+        yStart = 56 - s[1];
+        xEnd = s[3] - 65;
+        yEnd = 56 - s[4];
 
         board->movePiece(xStart, yStart, xEnd, yEnd);
         whiteTurn = !whiteTurn;
@@ -64,8 +65,9 @@ void GameController::playGame() {
     cout << (whiteTurn ? "White moves" : "Black moves") << endl;
 
     while (userInput() && !board->isCheckMate()) { // loops untill checkmate is triggered or user inputs exit
-        cout << (whiteTurn ? "White moves" : "Black moves") << endl;
         board->printBoard();
+        cout << (whiteTurn ? "White moves" : "Black moves") << endl;
+
     }
 
     // ends game
@@ -102,10 +104,10 @@ bool GameController::userInput() {
     }
     if (validMoveFound) {
         cout << "Great move!" << endl;
-        yStart = s[0] - 65;
-        xStart = 56 - s[1];
-        yEnd = s[3] - 65;
-        xEnd = 56 - s[4];
+        xStart = s[0] - 65;
+        yStart = 56 - s[1];
+        xEnd = s[3] - 65;
+        yEnd = 56 - s[4];
 
         board->movePiece(xStart, yStart, xEnd, yEnd);
         moveHistory.push_back(s);

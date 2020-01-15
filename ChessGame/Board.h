@@ -29,15 +29,17 @@ public:
     bool isCheck() const;
 
 
-private:
-    bool ischeck = false;
-    bool ischeckmate = false;
+private: //functions
 
     string arrayPosToString(int x, int y, int xDes, int yDes);
 
-private:
-    array<unique_ptr<Piece>,8> board2;
+    vector<string> KingMoves(int yPos,int xPos);
 
+private: // values
+
+
+    bool ischeck = false;
+    bool ischeckmate = false;
     array<array<unique_ptr<Piece>,8>,8> board;
 };
 
