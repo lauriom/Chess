@@ -105,9 +105,21 @@ vector<string> Board::possibleMoves(bool isWhiteTurn) {
                     if (isWhiteTurn == elem->isPieceWhite()) {
                         switch (elem->getID()) {
                             case king: // move case for king piece TODO: does moving cause check?
-                                // king has a movement vector of 1 in all directions, loops check 3x3 grid and that it dosnt go out of bounds
-                                temp = KingMoves(yPos, xPos);
-                                moves.insert(moves.end(), temp.begin(), temp.end());
+                                for (int y = -1; y <= 1; y++) {
+                                    for (int x = -1; x <= 1; x++) {
+                                        if (xPos + x >= 0 && xPos + x <= 7 && yPos + y >= 0 && yPos + y <= 7) {
+                                            if (board[yPos + y][xPos + x].get() != nullptr) {
+                                                if (board[yPos + y][xPos + x]->isPieceWhite() != board[yPos][xPos]->isPieceWhite()) {
+                                                    // clog << " Not null and not same color" << endl;
+                                                    moves.push_back(arrayPosToString(yPos, xPos, yPos + y, xPos + x));
+                                                }
+                                            } else {
+                                                // clog << "piece is null " << endl;
+                                                moves.push_back(arrayPosToString(yPos, xPos, yPos + y, xPos + x));
+                                            }
+                                        }
+                                    }
+                                }
                                 break;
 
                             case queen:
@@ -148,27 +160,7 @@ vector<string> Board::possibleMoves(bool isWhiteTurn) {
     return moves;
 }
 
-vector<string> Board::KingMoves(int yPos, int xPos) {
-    vector<string> moves;
-    string temp;
 
-    for (int y = -1; y <= 1; y++) {
-        for (int x = -1; x <= 1; x++) {
-            if (xPos + x >= 0 && xPos + x <= 7 && yPos + y >= 0 && yPos + y <= 7) {
-                if (board[yPos + y][xPos + x].get() != nullptr) {
-                    if (board[yPos + y][xPos + x]->isPieceWhite() != board[yPos][xPos]->isPieceWhite()) {
-                        // clog << " Not null and not same color" << endl;
-                        moves.push_back(arrayPosToString(yPos, xPos, yPos + y, xPos + x));
-                    }
-                } else {
-                    // clog << "piece is null " << endl;
-                    moves.push_back(arrayPosToString(yPos, xPos, yPos + y, xPos + x));
-                }
-            }
-        }
-    }
-    return moves;
-}
 
 /**
  * converts array positions to board positions A-H  1-8

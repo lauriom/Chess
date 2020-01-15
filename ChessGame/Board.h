@@ -29,14 +29,9 @@ public:
     bool isCheck() const;
 
 
-private: //functions
+private:
 
     string arrayPosToString(int x, int y, int xDes, int yDes);
-
-    vector<string> KingMoves(int yPos,int xPos);
-
-private: // values
-
 
     bool ischeck = false;
     bool ischeckmate = false;
