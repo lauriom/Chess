@@ -31,7 +31,7 @@ private:
 
     bool userInput();
 
-    bool userInput2(string s);
+    bool userInput2(const string& s);
 
     unique_ptr<Board> board;
     bool whiteTurn = true;

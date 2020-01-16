@@ -97,7 +97,7 @@ bool GameController::userInput() {
         if (!userInput2(s)) { return false; }
     }
     bool validMoveFound = false;
-    for (auto s2 : board->possibleMoves(whiteTurn)) {
+    for (const auto& s2 : board->possibleMoves(whiteTurn)) {
         if (s == s2) {
             validMoveFound = true;
         }
@@ -128,7 +128,7 @@ bool GameController::userInput() {
  * @param s userinput
  * @return false if exit is inputted, else true
  */
-bool GameController::userInput2(string s) {
+bool GameController::userInput2(const string& s) {
     if (s.find("SAVE") != std::string::npos) {
         SaveLoad gameSave;
         gameSave.saveGame(moveHistory);

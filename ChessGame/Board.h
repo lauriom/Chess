@@ -31,11 +31,13 @@ public:
 
 private:
 
-    string arrayPosToString(int x, int y, int xDes, int yDes);
+    string arrayPosToString(int y, int x, int yDes, int xDes);
 
     bool ischeck = false;
     bool ischeckmate = false;
     array<array<unique_ptr<Piece>,8>,8> board;
+    vector<string> bishopMove(int yPos,int xPos);
+    vector<string> rookMove(int yPos, int xPos);
 };
 
 
