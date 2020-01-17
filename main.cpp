@@ -12,7 +12,6 @@ bool menu() {
     cout << "Press 2 to load the game" << endl;
     cout << "Press 4 to exit the game" << endl;
     unique_ptr<GameController> game{new GameController};
-    char c;
 
     string s;
     cin >> s;

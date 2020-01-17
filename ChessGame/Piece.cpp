@@ -30,6 +30,9 @@ Piece::Piece(int id, bool iswhite) : isWhite(iswhite), id(id) {
         case pawn:
             name = "bP";
             break;
+        default:
+            std::cerr << "Incorrect initialization of chess piece" << std::endl;
+            break;
     }
     if (iswhite) { // sets piece color to white
         name[0] = 'w';

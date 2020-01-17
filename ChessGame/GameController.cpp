@@ -26,27 +26,28 @@ void GameController::startGame() {
  * goes trough evey move and starts game from previous state
  */
 void GameController::loadGame() {
-    unique_ptr<SaveLoad> save{new SaveLoad};
 
-    unique_ptr<vector<string>> tempHist = save->loadGame();
+    unique_ptr<vector<string>> tempHist = SaveLoad::loadGame();
 
-    if (tempHist->empty()) {
-        cout << "No save file found" << endl;
+    if (tempHist->empty()) { // checks if file is empty/exists
+        cerr << "No save file found" << endl;
         return;
     }
 
     for (auto s : *tempHist) {
-        if (!(isalpha(s[0]) && isdigit(s[1]) && isalpha(s[3]) && isdigit(s[4]))) {
+        if (!(isalpha(s[0]) && isdigit(s[1]) && isalpha(s[3]) && isdigit(s[4]))) {// check's format
             cerr << "Save corrupted.\n"
                     "Please start new Game" << endl;
-            save->deleteGame();
+            SaveLoad::deleteGame();
             return;
         }
-        doMove(s);
+        doMove(s); // moves pieces
     }
-    playGame();
+    playGame(); // startGame
 }
-
+/**
+ * controls flow of game
+ */
 void GameController::playGame() {
     board->printBoard();
     cout << (whiteTurn ? "White moves" : "Black moves") << endl;
@@ -54,19 +55,20 @@ void GameController::playGame() {
     while (userInput() && !board->isCheckMate()) { // loops untill checkmate is triggered or user inputs exit
         board->printBoard();
         cout << (whiteTurn ? "White moves" : "Black moves") << endl;
-
     }
 
     // ends game
     // goes back to main
 }
-
+/**
+ * @param move ammount to go back
+ */
 void GameController::undoMove(int move) {
     if (move == 0) {
         return;
     }
     for (int i = 0; i < move; i++) {
-        moveHistory.pop_back();
+        moveHistory.pop_back(); // removes moves from vectors endd
     }
     board = std::make_unique<Board>(); // creates new board
     for (auto &m : moveHistory) {
@@ -97,7 +99,6 @@ bool GameController::userInput() {
         if (!userInput2(s)) { return false; }
     }
 
-    bool validMoveFound = false;
     for (const auto &s2 : board->possibleMoves(whiteTurn)) {
         if (s == s2) { // goes trough array and does a string comparison to find if moves are valid
             doMove(s);
@@ -116,8 +117,7 @@ bool GameController::userInput() {
  */
 bool GameController::userInput2(const string &s) {
     if (s.find("SAVE") != std::string::npos) {
-        SaveLoad gameSave;
-        gameSave.saveGame(moveHistory);
+        SaveLoad::saveGame(moveHistory);
         cout << "Game Saved\n\n" << endl;
     } else if (s == "HELP") {
         cout << "commands:\n"
@@ -160,7 +160,7 @@ void GameController::doMove(string s) {
 
     board->movePiece(xStart, yStart, xEnd, yEnd);
     moveHistory.push_back(s);
-    whiteTurn = !whiteTurn; // successful move swapping player
+    whiteTurn = !whiteTurn; // swaps player
 }
 
 

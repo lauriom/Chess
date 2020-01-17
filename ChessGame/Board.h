@@ -31,7 +31,7 @@ public:
 
 private:
 
-    string arrayPosToString(int y, int x, int yDes, int xDes);
+    static string arrayPosToString(int y, int x, int yDes, int xDes);
 
     bool ischeck = false;
     bool ischeckmate = false;

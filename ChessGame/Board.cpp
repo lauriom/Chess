@@ -89,7 +89,7 @@ void Board::generateBoard() {
  */
 void Board::movePiece(int xStart, int yStart, int xEnd, int yEnd) {
     //clog << xStart << " " << yStart<< " " <<xEnd << " " << yEnd << endl;
-    board[yEnd][xEnd] = move(board[yStart][xStart]);  // TODO: fix
+    board[yEnd][xEnd] = move(board[yStart][xStart]);
 }
 
 /**
@@ -149,8 +149,8 @@ vector<string> Board::possibleMoves(bool isWhiteTurn) {
                             for (int i = 0; i < 2; i++) {
                                 for (int j = 0; j < 2; j++) {// moves up 2 in y axis then int x axis by 1
                                     if (yPos + (yDir) >= 0 && yPos + (yDir) <= 7 &&
-                                        xPos + (xDir) >= 0 && xPos + (xDir) <= 7) {
-                                        if (board[yPos + (yDir)][xPos + (xDir)].get() == nullptr) {
+                                        xPos + (xDir) >= 0 && xPos + (xDir) <= 7) {  // array bounds check
+                                        if (board[yPos + (yDir)][xPos + (xDir)].get() == nullptr) { // checks if is empty
                                             moves.push_back(
                                                     arrayPosToString(yPos, xPos, yPos + (yDir), xPos + (xDir)));
                                         } else if (board[yPos + (yDir)][xPos + (xDir)]->isPieceWhite() !=
@@ -166,15 +166,15 @@ vector<string> Board::possibleMoves(bool isWhiteTurn) {
 
                             yDir = 1;
                             xDir = 2;
-                            for (int i = 0; i < 2; i++) {// moves up 2 in x axis then int y axis by 1
+                            for (int i = 0; i < 2; i++) {// moves by 2 in x axis then in y axis by 1
                                 for (int j = 0; j < 2; j++) {
                                     if (yPos + (yDir) >= 0 && yPos + (yDir) <= 7 &&
-                                        xPos + (xDir) >= 0 && xPos + (xDir) <= 7) {
-                                        if (board[yPos + (yDir)][xPos + (xDir)].get() == nullptr) {
+                                        xPos + (xDir) >= 0 && xPos + (xDir) <= 7) {// array bounds check
+                                        if (board[yPos + (yDir)][xPos + (xDir)].get() == nullptr) { // is empty?
                                             moves.push_back(
                                                     arrayPosToString(yPos, xPos, yPos + (yDir), xPos + (xDir)));
                                         } else if (board[yPos + (yDir)][xPos + (xDir)]->isPieceWhite() !=
-                                                   elem->isPieceWhite()) {
+                                                   elem->isPieceWhite()) { // is friend?
                                             moves.push_back(
                                                     arrayPosToString(yPos, xPos, yPos + (yDir), xPos + (xDir)));
                                         }

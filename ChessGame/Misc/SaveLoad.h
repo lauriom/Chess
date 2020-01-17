@@ -14,9 +14,9 @@ using namespace std;
 
 class SaveLoad {
 public:
-    void saveGame(const vector<string> &v);
-    void deleteGame();
-    unique_ptr<vector<string>> loadGame();
+    static void saveGame(const vector<string> &v);
+    static void deleteGame();
+    static unique_ptr<vector<string>> loadGame();
 
 };
 
