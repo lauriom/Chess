@@ -13,6 +13,7 @@ using namespace std;
 #include <exception>
 #include <algorithm>
 
+
 #include "Board.h"
 #include "Misc/SaveLoad.h"
 
@@ -24,18 +25,19 @@ public:
 
     void startGame();
 
-    void resumeGame();
+    void loadGame();
 
 private:
     void playGame();
+    void doMove(string s);
+    void undoMove(int move);
 
     bool userInput();
-
     bool userInput2(const string& s);
 
-    unique_ptr<Board> board;
     bool whiteTurn = true;
     vector<string> moveHistory;
+    unique_ptr<Board> board;
 
 };
 

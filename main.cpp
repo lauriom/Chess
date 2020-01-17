@@ -25,7 +25,7 @@ bool menu() {
             game->startGame();
             break;
         case 2:
-            game->resumeGame();
+            game->loadGame();
             break;
         case 4:
             return false;

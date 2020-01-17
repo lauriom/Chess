@@ -8,28 +8,27 @@
 /**
  * @param v vector of strings to save
  */
-void SaveLoad::saveGame(const vector <string> &v) {
+void SaveLoad::saveGame(const vector<string> &v) {
     ofstream chessFile("save.txt");
     for (const auto &s : v) {
         chessFile << s << endl;
     }
-
     chessFile.close();
 }
+
 /**
- * loads
+ * loads moves from file, assumes file has not been tampered with
  * @return a vector of strings
  */
-vector <string> SaveLoad::loadGame() {
-    vector <string> moves;
+unique_ptr<vector<string>> SaveLoad::loadGame() {
+    unique_ptr<vector<string>> moves = make_unique<vector<string>>();
     string temp;
     ifstream chessFile("save.txt");
 
     if (chessFile.is_open()) {
         std::string line;
         while (getline(chessFile, line)) {
-            // using printf() in all tests for consistency
-            moves.push_back(line);
+            moves->push_back(line);
         }
         chessFile.close();
     }
@@ -37,8 +36,8 @@ vector <string> SaveLoad::loadGame() {
 }
 
 void SaveLoad::deleteGame() {
-    if( remove( "save.txt" ) != 0 )
-        perror( "Error deleting save" );
+    if (remove("save.txt") != 0)
+        cerr << "Error deleting save" << endl;
     else
-        puts( "File successfully deleted" );
+        cout << "File successfully deleted" << endl;
 }

@@ -10,12 +10,13 @@ using namespace std;
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <memory>
 
 class SaveLoad {
 public:
     void saveGame(const vector<string> &v);
     void deleteGame();
-    vector<string> loadGame();
+    unique_ptr<vector<string>> loadGame();
 
 };
 

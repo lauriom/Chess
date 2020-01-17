@@ -61,7 +61,7 @@ void Board::generateBoard() {
     //creates white pieces
 
     for (auto &elem : board[6]) {
-        // elem = std::make_unique<Piece>(pawn, true);
+        elem = std::make_unique<Piece>(pawn, true);
     }
 
     board[7][0] = std::make_unique<Piece>(rook, true);
@@ -187,7 +187,7 @@ vector<string> Board::possibleMoves(bool isWhiteTurn) {
                         }
                             break;
 
-                        case rook: {
+                        case rook: { // movement for rook
                             moves.emplace_back("Rook:");
                             temp = rookMove(yPos, xPos);
                             moves.insert(moves.end(), temp.begin(), temp.end());
